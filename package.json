@@ -1,0 +1,27 @@
+{
+  "name": "anchor-hash-scroll",
+  "version": "0.0.1",
+  "description": "Anchor hash link scroll tracking and smooth scrolling",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayrbolton/anchor-hash-scroll.git"
+  },
+  "keywords": [
+    "anchor",
+    "hash",
+    "scroll"
+  ],
+  "author": "jay r bolton <jayrbolton@gmail.com> (http://jayrbolton.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jayrbolton/anchor-hash-scroll/issues"
+  },
+  "homepage": "https://github.com/jayrbolton/anchor-hash-scroll#readme"
+}
