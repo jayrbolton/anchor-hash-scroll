@@ -4,6 +4,8 @@ if(!window._anchorScrollHashInitialized) {
   window._anchorScrollHashInitialized = true
 }
 
+var autoScrolling = false
+var currentHash = null
 
 // Main initialization function to add scroll functionality
 function initialize() {
@@ -11,15 +13,14 @@ function initialize() {
   var sel = 'a[href^="#"]'
   var anchors = document.querySelectorAll(sel)
   var elems = []
-  window._currentHash = null
   for(var i = 0 ; i < anchors.length ; ++i) {
     var anchor = anchors[i]
     var id = anchor.getAttribute('href')
     var section = document.querySelector('[id="' + id.replace('#', '') + '"]')
     if(section) {
-      var offset = Number(section.getAttribute('data-offset') || 0)
-      elems.push({id: id, anchor: anchor, section: section, top: section.offsetTop})
-      anchor.addEventListener('click', handleClick(section, id, offset))
+      var elem = {id: id, anchor: anchor, section: section, top: section.offsetTop}
+      elems.push(elem)
+      anchor.addEventListener('click', handleClick(elems, elems.length-1))
     }
   }
 
@@ -41,34 +42,42 @@ function initialize() {
 
 
 // Handle a click event on an anchor link
-function handleClick(section, id, offset) {
+function handleClick(elems, idx) {
   return function(ev) {
     ev.preventDefault()
-    section.scrollIntoView({ behavior: 'smooth',  })
+    autoScrolling = true
+    setTimeout(function(ts) { autoScrolling = false }, 1000)
+    activateElem(elems, idx)
+    elems[idx].section.scrollIntoView({ behavior: 'smooth',  })
   }
 }
 
-// Find the current section within view based on scrollY
-function findSection(elems) {
-  var scrollPos = window.scrollY
-
-  // Deactivate all anchors and sections
+// Activate an element as the current section
+function activateElem(elems, idx) {
+  // First, deactivate all
   for(var i = 0 ; i < elems.length; ++i) {
     elems[i].anchor.removeAttribute('data-active')
     elems[i].section.removeAttribute('data-active')
   }
+  var elem = elems[idx]
+  currentHash = elem.id
+  history.pushState(null, '', elem.id)
+  elem.anchor.setAttribute('data-active', 'true')
+  elem.section.setAttribute('data-active', 'true')
+}
+
+// Find the current section within view based on scrollY
+function findSection(elems) {
+  if(autoScrolling) return
+  var scrollPos = window.scrollY
 
   // Find the farthest-down element whose y coord is lte to scrollPos
-  for(var i = 0, found = null, passed = false; i < elems.length && !passed; ++i) {
-    if(elems[i].top <= scrollPos) found = elems[i]
+  var found = null
+  for(var i = 0, passed = false; i < elems.length && !passed; ++i) {
+    if(elems[i].top <= scrollPos) found = i
     else passed = true
   }
 
-  // Set the active id, anchor, section
-  if(found && found.id !== window._currentHash) {
-    window._currentHash = found.id
-    history.pushState(null, '', found.id)
-    found.anchor.setAttribute('data-active', true)
-    found.section.setAttribute('data-active', true)
-  }
+  var elem = elems[found]
+  if(elem && elem.id !== currentHash) activateElem(elems, found)
 }
