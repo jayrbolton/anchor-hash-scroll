@@ -1,6 +1,6 @@
 {
   "name": "anchor-hash-scroll",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Anchor hash link scroll tracking and smooth scrolling",
   "main": "index.js",
   "directories": {
