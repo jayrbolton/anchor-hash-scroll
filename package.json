@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "watch": "watchify docs/index.js -o docs/build.js -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +24,9 @@
   "bugs": {
     "url": "https://github.com/jayrbolton/anchor-hash-scroll/issues"
   },
-  "homepage": "https://github.com/jayrbolton/anchor-hash-scroll#readme"
+  "homepage": "https://github.com/jayrbolton/anchor-hash-scroll#readme",
+  "devDependencies": {
+    "browserify": "^14.3.0",
+    "watchify": "^3.9.0"
+  }
 }

@@ -1,103 +1,14 @@
-<head>
-  <meta charset="utf-8">
-  <title>Anchor hash scroll</title>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Anchor hash scroll</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body></body>
+  <script src='./build.js'></script>
+</html>
 
-<body></body>
-
-<script>
-
-function elm(name) { return document.createElement(name) }
-function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
-function changeHeight(ev) {
-  var parentSection = ev.target.parentElement
-  parentSection.style.paddingBottom = rand(3, 100) + 'rem' 
-}
-
-
-var nav = elm('nav')
-var main = elm('main')
-var sectionNames = ['A','B','C','D','E','F','G']
-var body = document.body
-
-
-sectionNames.forEach(function(x, i) {
-  var section = elm('section')
-  var h1 = elm('h1')
-  var a = elm('a') 
-  var btn = elm('button')
-  btn.innerHTML = 'Change height'
-  btn.addEventListener('click', changeHeight)
-  a.href = '#' + x
-  a.innerHTML = x
-  h1.innerHTML = 'Section ' + x
-  section.id = x
-  section.style.paddingBottom = rand(3, 100) + 'rem' 
-  section.appendChild(h1)
-  section.appendChild(btn)
-  nav.appendChild(a)
-  main.appendChild(section)
-})
-
-body.appendChild(nav)
-body.appendChild(main)
-</script>
-
-<script src='../index.js'></script>
-
-<style>
-* { box-sizing: border-box; }
-body {
-  font-family: 
-    -apple-system,
-    BlinkMacSystemFont, 
-    Segoe UI,
-    Helvetica Neue,
-    Helvetica,
-    sans-serif;
-  font-size: 16px;
-}
-a {
-  line-height: 1.5rem;
-  width: 1.5rem;
-  display: inline-block;
-  text-decoration: none;
-  color: blue;
-  text-align: center;
-  margin: 0 .25rem;
-}
-a[data-active='true'] {
-  background: blue;
-  color: white;
-}
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  padding: 1rem .5rem;
-}
-button {
-  background: white;
-  border: 2px solid blue;
-  color: blue;
-  border-radius: 3px;
-  margin-top: 1rem;
-  cursor: pointer;
-  padding: .5rem;
-  font-family: inherit;
-}
-h1 { margin: 0; }
-section {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 3rem;
-}
-section:nth-of-type(2n) { background: tomato; }
-section:nth-of-type(2n-1) { background: #e4e4e4; }
-</style>
 
 
