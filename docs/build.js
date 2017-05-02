@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-require('../index.js')
+var scroll = require('../index.js')
 
 function elm(name) { return document.createElement(name) }
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
+function randHeight(){return rand(3, 100) + 'rem'}
 function changeHeight(ev) {
   var parentSection = ev.target.parentElement
-  parentSection.style.paddingBottom = rand(3, 100) + 'rem' 
+  parentSection.style.paddingBottom = randHeight() 
 }
 
 var nav = elm('nav')
@@ -24,7 +25,7 @@ sectionNames.forEach(function(x, i) {
   a.innerHTML = x
   h1.innerHTML = 'Section ' + x
   section.id = x
-  section.style.paddingBottom = rand(3, 100) + 'rem' 
+  section.style.paddingBottom = randHeight()
   section.appendChild(h1)
   section.appendChild(btn)
   nav.appendChild(a)
@@ -34,19 +35,22 @@ sectionNames.forEach(function(x, i) {
 body.appendChild(nav)
 body.appendChild(main)
 
+scroll()
+
 
 },{"../index.js":2}],2:[function(require,module,exports){
-// Only initialize once ever
-if(!window._anchorScrollHashInitialized) {
-  initialize()
-  window._anchorScrollHashInitialized = true
+module.exports = function () {
+  if(!window._anchorScrollHashInitialized) {
+    init()
+    window._anchorScrollHashInitialized = true
+  }
 }
 
 var autoScrolling = false
 var currentHash = null
 
 // Main initialization function to add scroll functionality
-function initialize() {
+function init(config) {
   // Find all anchor links that have a hash href
   var sel = 'a[href^="#"]'
   var anchors = document.querySelectorAll(sel)
@@ -79,6 +83,8 @@ function initialize() {
 }
 
 
+
+
 // Handle a click event on an anchor link
 function handleClick(elems, idx) {
   return function(ev) {
@@ -86,7 +92,7 @@ function handleClick(elems, idx) {
     autoScrolling = true
     setTimeout(function(ts) { autoScrolling = false }, 1000)
     activateElem(elems, idx)
-    elems[idx].section.scrollIntoView({ behavior: 'smooth',  })
+    elems[idx].section.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
@@ -107,7 +113,7 @@ function activateElem(elems, idx) {
 // Find the current section within view based on scrollY
 function findSection(elems) {
   if(autoScrolling) return
-  var scrollPos = window.scrollY
+  var scrollPos =  window.scrollY || window.pageYOffset
 
   // Find the farthest-down element whose y coord is lte to scrollPos
   var found = null
@@ -119,5 +125,6 @@ function findSection(elems) {
   var elem = elems[found]
   if(elem && elem.id !== currentHash) activateElem(elems, found)
 }
+
 
 },{}]},{},[1]);

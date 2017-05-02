@@ -1,14 +1,15 @@
-// Only initialize once ever
-if(!window._anchorScrollHashInitialized) {
-  initialize()
-  window._anchorScrollHashInitialized = true
+module.exports = function () {
+  if(!window._anchorScrollHashInitialized) {
+    init()
+    window._anchorScrollHashInitialized = true
+  }
 }
 
 var autoScrolling = false
 var currentHash = null
 
 // Main initialization function to add scroll functionality
-function initialize() {
+function init(config) {
   // Find all anchor links that have a hash href
   var sel = 'a[href^="#"]'
   var anchors = document.querySelectorAll(sel)
@@ -41,6 +42,8 @@ function initialize() {
 }
 
 
+
+
 // Handle a click event on an anchor link
 function handleClick(elems, idx) {
   return function(ev) {
@@ -48,7 +51,7 @@ function handleClick(elems, idx) {
     autoScrolling = true
     setTimeout(function(ts) { autoScrolling = false }, 1000)
     activateElem(elems, idx)
-    elems[idx].section.scrollIntoView({ behavior: 'smooth',  })
+    elems[idx].section.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
@@ -69,7 +72,7 @@ function activateElem(elems, idx) {
 // Find the current section within view based on scrollY
 function findSection(elems) {
   if(autoScrolling) return
-  var scrollPos = window.scrollY
+  var scrollPos =  window.scrollY || window.pageYOffset
 
   // Find the farthest-down element whose y coord is lte to scrollPos
   var found = null
@@ -81,3 +84,4 @@ function findSection(elems) {
   var elem = elems[found]
   if(elem && elem.id !== currentHash) activateElem(elems, found)
 }
+

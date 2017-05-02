@@ -1,10 +1,11 @@
-require('../index.js')
+var scroll = require('../index.js')
 
 function elm(name) { return document.createElement(name) }
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
+function randHeight(){return rand(3, 100) + 'rem'}
 function changeHeight(ev) {
   var parentSection = ev.target.parentElement
-  parentSection.style.paddingBottom = rand(3, 100) + 'rem' 
+  parentSection.style.paddingBottom = randHeight() 
 }
 
 var nav = elm('nav')
@@ -23,7 +24,7 @@ sectionNames.forEach(function(x, i) {
   a.innerHTML = x
   h1.innerHTML = 'Section ' + x
   section.id = x
-  section.style.paddingBottom = rand(3, 100) + 'rem' 
+  section.style.paddingBottom = randHeight()
   section.appendChild(h1)
   section.appendChild(btn)
   nav.appendChild(a)
@@ -32,4 +33,6 @@ sectionNames.forEach(function(x, i) {
 
 body.appendChild(nav)
 body.appendChild(main)
+
+scroll()
 
