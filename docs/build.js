@@ -74,6 +74,9 @@ function init(config) {
 function handleClick(section, config) {
   return function(ev) {
     ev.preventDefault()
+    setTimeout(function(ts) { 
+      history.pushState(null, '', '#' + section.id)
+    }, config.duration || 1000)
     jump(section, config)
   }
 }
