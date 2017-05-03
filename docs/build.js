@@ -12,8 +12,7 @@ var nav = elm('nav')
 var main = elm('main')
 var sectionNames = ['A','B','C','D','E','F','G']
 var body = document.body
-var eyes = '&#128064; '
-var space = '&nbsp; '
+var eyes = '&#128064;'
 
 sectionNames.forEach(function(x) {
   var section = elm('section')
@@ -25,7 +24,7 @@ sectionNames.forEach(function(x) {
   btn.addEventListener('click', changeHeight)
   a.href = '#' + x
   a.innerHTML = x
-  span.innerHTML = space + eyes
+  span.innerHTML = eyes
   h1.innerHTML = 'Section ' + x 
   h1.appendChild(span)
   section.id = x

@@ -13,7 +13,7 @@ a {
   color: blue;
 }
 nav a {
-  transition: background 150ms ease, color 150ms ease;
+  transition: background 200ms ease, color 200ms ease;
   line-height: 1.5rem;
   width: 1.5rem;
   display: inline-block;
@@ -23,10 +23,17 @@ a[data-active='true'] {
   background: blue;
   color: white;
 }
-section span { 
+section h1 { 
   display: inline-block;
-  transform: translateY(3rem) translateZ(0);
-  transition: all 150ms 150ms ease;
+  position: relative;
+  padding-right: 3rem;
+}
+section span { 
+  position: absolute; 
+  right: 0;
+  top: 0;
+  transform: translateY(2rem) translateZ(0);
+  transition: all 200ms ease;
   opacity: 0; 
 }
 section[data-active='true'] span { 
@@ -44,6 +51,7 @@ nav {
   padding: 1rem;
 }
 button {
+  display: block;
   background: white;
   border: 2px solid blue;
   color: blue;
@@ -53,7 +61,7 @@ button {
   padding: .5rem;
   font-family: inherit;
 }
-h1 { margin: 0; }
+h1 { margin-top: 0; }
 section {
   padding-left: 1rem;
   padding-right: 1rem;
