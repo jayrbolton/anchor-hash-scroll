@@ -12,17 +12,22 @@ var nav = elm('nav')
 var main = elm('main')
 var sectionNames = ['A','B','C','D','E','F','G']
 var body = document.body
+var eyes = '&#128064; '
+var space = '&nbsp; '
 
 sectionNames.forEach(function(x) {
   var section = elm('section')
   var h1 = elm('h1')
   var a = elm('a') 
   var btn = elm('button')
+  var span = elm('span')
   btn.innerHTML = 'Change height'
   btn.addEventListener('click', changeHeight)
   a.href = '#' + x
   a.innerHTML = x
-  h1.innerHTML = 'Section ' + x
+  span.innerHTML = space + eyes
+  h1.innerHTML = 'Section ' + x 
+  h1.appendChild(span)
   section.id = x
   section.style.paddingBottom = randHeight()
   section.appendChild(h1)
@@ -44,7 +49,6 @@ scroll({
 },{"../index.js":2}],2:[function(require,module,exports){
 var jump = require('jump.js')
 
-// Main initialization function to add scroll functionality
 function init(config) {
   // Find all anchor links that have a hash href
   var currentHash = null

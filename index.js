@@ -1,6 +1,5 @@
 var jump = require('jump.js')
 
-// Main initialization function to add scroll functionality
 function init(config) {
   // Find all anchor links that have a hash href
   var currentHash = null

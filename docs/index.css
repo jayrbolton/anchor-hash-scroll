@@ -10,18 +10,20 @@ body {
   font-size: 16px;
 }
 a {
+  color: blue;
+}
+nav a {
   line-height: 1.5rem;
   width: 1.5rem;
   display: inline-block;
-  text-decoration: none;
-  color: blue;
   text-align: center;
-  margin: 0 .25rem;
 }
 a[data-active='true'] {
   background: blue;
   color: white;
 }
+section span { opacity: 0; }
+section[data-active='true'] span { opacity: 1; }
 nav {
   position: fixed;
   top: 0;
@@ -29,7 +31,7 @@ nav {
   right: 0;
   background: white;
   border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding: 1rem .5rem;
+  padding: 1rem;
 }
 button {
   background: white;
