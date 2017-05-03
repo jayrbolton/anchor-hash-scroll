@@ -9,7 +9,7 @@ function init(config) {
   for(var i = 0 ; i < anchors.length ; ++i) {
     var anchor = anchors[i]
     var id = anchor.getAttribute('href')
-    var section = document.querySelector('[id="' + id.replace('#', '') + '"]')
+    var section = document.querySelector(id)
     if(section) {
       var elem = {id: id, anchor: anchor, section: section}
       elems.push(elem)
