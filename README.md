@@ -2,16 +2,18 @@
 
 ### [Demo](http://jayrbolton.github.io/anchor-hash-scroll)
 
-This is a plain-JS library for enhancing anchor link behavior:
-
-* Finds all anchor links and their corresponding targets on a page and tracks scrolling, setting `data-active` attributes to be true for links and targets within the current scroll
+### Features:
+* Finds all anchor links and their corresponding targets on a page and tracks scrolling, setting `data-active` attributes to true for links and targets within the current scroll.
 * Customizable smooth scrolling using [jump.js](https://github.com/callmecavs/jump.js).
+* Uses `pushState` to keep track of anchor jumping history.
+* Supports dynamic page layouts (elements changing height after ajax, etc...).
 
-See all smooth scrolling options [here](https://github.com/callmecavs/jump.js#options).
+See **jump.js** smooth scrolling options [here](https://github.com/callmecavs/jump.js#options).
 
 ### Example:
 ```js
 const anchorScroll = require('anchor-scroll-hash')
+// takes options for smooth scrolling (jump.js)
 anchorScroll({
   duration: 3000
 , offset: 0 - document.querySelector('#topNav').offsetHeight
