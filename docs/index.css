@@ -28,6 +28,7 @@ nav {
   left: 0;
   right: 0;
   background: white;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
   padding: 1rem .5rem;
 }
 button {

@@ -1,5 +1,4 @@
-
-function getPageScroll() { return window.scrollY || window.pageYOffset }
+var jump = require('jump.js')
 
 // Main initialization function to add scroll functionality
 function init(config) {
@@ -15,13 +14,20 @@ function init(config) {
     if(section) {
       var elem = {id: id, anchor: anchor, section: section, top: section.offsetTop}
       elems.push(elem)
+      anchor.addEventListener('click', handleClick(section, config))
     }
   }
-
   // Track scrolling and change the url and link states based on current section
   window.addEventListener('scroll', function(e) {
-    findSection(elems, currentHash)
+    findSection(elems, currentHash, config)
   })
+}
+
+function handleClick(section, config) {
+  return function(ev) {
+    ev.preventDefault()
+    jump(section, config)
+  }
 }
 
 // Activate an element as the current section
@@ -33,14 +39,13 @@ function activateElem(elems, idx, currentHash) {
   }
   var elem = elems[idx]
   currentHash = elem.id
-  history.pushState(null, '', elem.id)
   elem.anchor.setAttribute('data-active', 'true')
   elem.section.setAttribute('data-active', 'true')
 }
 
 // Find the current section within view based on scrollY
-function findSection(elems, currentHash) {
-  var scrollPos =  getPageScroll() 
+function findSection(elems, currentHash, config) {
+  var scrollPos =  (window.scrollY || window.pageYOffset) - (config.offset || 0)
 
   // Find the farthest-down element whose y coord is lte to scrollPos
   var found = null

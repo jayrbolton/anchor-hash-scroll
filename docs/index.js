@@ -4,8 +4,7 @@ function elm(name) { return document.createElement(name) }
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
 function randHeight(){return rand(3, 100) + 'rem'}
 function changeHeight(ev) {
-  var parentSection = ev.target.parentElement
-  parentSection.style.paddingBottom = randHeight() 
+  ev.target.parentElement.style.paddingBottom = randHeight() 
 }
 
 var nav = elm('nav')
@@ -13,7 +12,7 @@ var main = elm('main')
 var sectionNames = ['A','B','C','D','E','F','G']
 var body = document.body
 
-sectionNames.forEach(function(x, i) {
+sectionNames.forEach(function(x) {
   var section = elm('section')
   var h1 = elm('h1')
   var a = elm('a') 
@@ -33,6 +32,10 @@ sectionNames.forEach(function(x, i) {
 
 body.appendChild(nav)
 body.appendChild(main)
+var navHeight = nav.offsetHeight
+body.style.paddingTop = navHeight + 'px'
 
-scroll()
+scroll({
+  offset: 0 - navHeight 
+})
 
