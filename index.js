@@ -12,7 +12,7 @@ function init(config) {
     var id = anchor.getAttribute('href')
     var section = document.querySelector('[id="' + id.replace('#', '') + '"]')
     if(section) {
-      var elem = {id: id, anchor: anchor, section: section, top: section.offsetTop}
+      var elem = {id: id, anchor: anchor, section: section}
       elems.push(elem)
       anchor.addEventListener('click', handleClick(section, config))
     }
@@ -50,10 +50,9 @@ function findSection(elems, currentHash, config) {
   // Find the farthest-down element whose y coord is lte to scrollPos
   var found = null
   for(var i = 0, passed = false; i < elems.length && !passed; ++i) {
-    if(elems[i].top <= scrollPos) found = i
+    if(elems[i].section.offsetTop <= scrollPos) found = i
     else passed = true
   }
-
   var elem = elems[found]
   if(elem && elem.id !== currentHash) activateElem(elems, found, currentHash)
 }
