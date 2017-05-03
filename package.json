@@ -1,6 +1,6 @@
 {
   "name": "anchor-hash-scroll",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Anchor hash link scroll tracking and smooth scrolling",
   "main": "index.js",
   "directories": {
@@ -17,19 +17,19 @@
   "keywords": [
     "anchor",
     "hash",
+    "smooth scroll",
     "scroll"
   ],
-  "author": "jay r bolton <jayrbolton@gmail.com> (http://jayrbolton.com/)",
+  "author": "Jay R Bolton <jayrbolton@gmail.com> (http://jayrbolton.com/)",
+  "contributors": [
+    "Yutaka Houlette <yutakahoulette@gmail.com> (http://yutakahoulette.com/)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jayrbolton/anchor-hash-scroll/issues"
   },
   "homepage": "https://github.com/jayrbolton/anchor-hash-scroll#readme",
-  "devDependencies": {
-    "browserify": "^14.3.0",
-    "watchify": "^3.9.0"
-  },
   "dependencies": {
-    "jump.js": "^1.0.2"
+    "jump.js": "1.0.2"
   }
 }
