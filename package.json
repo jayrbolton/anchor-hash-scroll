@@ -8,7 +8,8 @@
   },
   "scripts": {
     "watch": "watchify docs/index.js -o docs/build.js -v",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard index.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +32,9 @@
   "homepage": "https://github.com/jayrbolton/anchor-hash-scroll#readme",
   "dependencies": {
     "jump.js": "1.0.2"
+  },
+  "devDependencies": {
+    "standard": "10.0.3",
+    "watchify": "3.9.0"
   }
 }

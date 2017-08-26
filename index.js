@@ -1,68 +1,82 @@
 var jump = require('jump.js')
+var state = {}
 
-function init(config) {
+module.exports = function init (config) {
+  if (state.initialized) return
+  else state.initialized = true
+  config.offset = config.offset || 0
+  config.duration = config.duration || 1000
   // Find all anchor links that have a hash href
-  var currentHash = null
   var sel = 'a[href^="#"]'
   var anchors = document.querySelectorAll(sel)
   var elems = []
-  for(var i = 0 ; i < anchors.length ; ++i) {
-    var anchor = anchors[i]
+  for (var idx = 0; idx < anchors.length; ++idx) {
+    var anchor = anchors[idx]
     var id = anchor.getAttribute('href')
     var section = document.querySelector(id)
-    if(section) {
+    if (section) {
       var elem = {id: id, anchor: anchor, section: section}
       elems.push(elem)
-      anchor.addEventListener('click', handleClick(section, config))
+      anchor.addEventListener('click', handleClick(elems, idx, config))
     }
   }
   // Track scrolling and change the url and link states based on current section
-  window.addEventListener('scroll', function(e) {
-    findSection(elems, currentHash, config)
+  window.addEventListener('scroll', function () {
+    findSection(elems, config)
   })
 }
 
-function handleClick(section, config) {
-  return function(ev) {
+function handleClick (elems, idx, config) {
+  var section = elems[idx].section
+  config.callback = function () {
+    state.jumping = false
+  }
+  return function (ev) {
     ev.preventDefault()
-    setTimeout(function(ts) { 
-      history.pushState(null, '', '#' + section.id)
-    }, config.duration || 1000)
+    if (state.jumping) return
+    state.jumping = true
+    window.history.pushState({}, '', '#' + section.id)
+    activateElem(elems, idx)
     jump(section, config)
   }
 }
 
-// Activate an element as the current section
-function activateElem(elems, idx, currentHash) {
-  // First, deactivate all
-  for(var i = 0 ; i < elems.length; ++i) {
-    elems[i].anchor.removeAttribute('data-active')
-    elems[i].section.removeAttribute('data-active')
-  }
+// Activate a the nav-link element as the current section
+function activateElem (elems, idx) {
+  deactivate(elems)
   var elem = elems[idx]
-  currentHash = elem.id
   elem.anchor.setAttribute('data-active', 'true')
   elem.section.setAttribute('data-active', 'true')
 }
 
+function deactivate (elems) {
+  for (var i = 0; i < elems.length; ++i) {
+    elems[i].anchor.removeAttribute('data-active')
+    elems[i].section.removeAttribute('data-active')
+  }
+}
+
 // Find the current section within view based on scrollY
-function findSection(elems, currentHash, config) {
-  var scrollPos =  (window.scrollY || window.pageYOffset) - (config.offset || 0)
+function findSection (elems, config) {
+  if (state.jumping) return
+  var scrollPos = (window.scrollY || window.pageYOffset) - config.offset
 
   // Find the farthest-down element whose y coord is lte to scrollPos
-  var found = null
-  for(var i = 0, passed = false; i < elems.length && !passed; ++i) {
-    if(elems[i].section.offsetTop <= scrollPos) found = i
-    else passed = true
+  var foundIdx = -1
+  for (var idx = 0; idx < elems.length && foundIdx < 0; ++idx) {
+    var section = elems[idx].section
+    var top = section.offsetTop + config.offset
+    var bottom = top + section.offsetHeight
+    if (scrollPos >= top && scrollPos < bottom) {
+      foundIdx = idx
+    }
   }
-  var elem = elems[found]
-  if(elem && elem.id !== currentHash) activateElem(elems, found, currentHash)
-}
-
-module.exports = function (config) {
-  if(!window._anchorScrollHashInitialized) {
-    init(config)
-    window._anchorScrollHashInitialized = true
+  if (foundIdx < 0) {
+    deactivate(elems)
+    return // foundIdx = elems.length - 1
+  }
+  var elem = elems[foundIdx]
+  if (elem && ('#' + elem.id) !== window.location.hash) {
+    activateElem(elems, foundIdx)
   }
 }
-
