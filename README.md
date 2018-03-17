@@ -1,4 +1,4 @@
-# anchor-scroll-hash
+# anchor-hash-scroll
 
 ### [Demo](http://jayrbolton.github.io/anchor-hash-scroll)
 
@@ -12,7 +12,7 @@ See **jump.js** smooth scrolling options [here](https://github.com/callmecavs/ju
 
 ### Example:
 ```js
-const anchorScroll = require('anchor-scroll-hash')
+const anchorScroll = require('anchor-hash-scroll')
 // takes options for smooth scrolling (jump.js)
 anchorScroll({
   duration: 3000
