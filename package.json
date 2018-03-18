@@ -7,9 +7,12 @@
     "doc": "docs"
   },
   "scripts": {
-    "watch": "watchify docs/index.js -o docs/build.js -v",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "standard index.js"
+    "lint": "dependency-check package.json && standard index.js",
+    "build-min": "browserify dist.js | uglifyjs > dist/build.min.js",
+    "build-docs": "browserify docs/index.js > docs/build.js",
+    "build": "browserify dist.js > dist/build.js && cp dist/build.js docs/build.js",
+    "build-all": "npm run build && npm run build-docs && npm run build-min"
   },
   "repository": {
     "type": "git",
@@ -34,7 +37,9 @@
     "jump.js": "1.0.2"
   },
   "devDependencies": {
-    "standard": "10.0.3",
-    "watchify": "3.9.0"
+    "browserify": "^16.1.1",
+    "dependency-check": "^3.1.0",
+    "standard": "^11.0.1",
+    "uglify-js": "^3.3.15"
   }
 }

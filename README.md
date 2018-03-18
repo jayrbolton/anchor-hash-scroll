@@ -10,14 +10,51 @@
 
 See **jump.js** smooth scrolling options [here](https://github.com/callmecavs/jump.js#options).
 
-### Example:
+## Install
+
+_With npm_
+
+```sh
+npm install --save anchor-hash-scroll
+```
+
+```js
+const scroll = require('anchor-hash-scroll')
+scroll({
+  offset: 32, // Amount of top padding for each section
+  duration: 1500  // Milliseconds for the smooth scroll
+})
+```
+
+_Using a CDN_
+
+You can use unpkg with the URL: unpkg.com/anchor-hash-scroll@0.1.2/dist/build.min.js
+
+```html
+<script src='//unpkg.com/anchor-hash-scroll@0.1.2/dist/build.min.js'></script>
+```
+
+## Usage
+
+The CDN version will get initialized automatically. For the NPM version, you can pass in configuration:
+
 ```js
 const anchorScroll = require('anchor-hash-scroll')
 // takes options for smooth scrolling (jump.js)
 anchorScroll({
-  duration: 3000
-, offset: 0 - document.querySelector('#topNav').offsetHeight
+  duration: 3000,
+  offset: 0 - document.querySelector('#topNav').offsetHeight
 })
 ```
 
-This uses `addEventListener`, and `querySelector` so may not work in old browsers unless you add polyfills.
+## Browser compatibility
+
+This module uses `addEventListener` and `querySelector`, and no other modern features. Jump.js supports IE10+
+
+## Development
+
+Build the distributions and example with `npm run build-all`
+
+Run the example with something like `npm install -g serve && serve docs`
+
+Lint the code with `npm run lint`

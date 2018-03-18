@@ -2,13 +2,15 @@ var jump = require('jump.js')
 var state = {}
 
 module.exports = function init (config) {
-  if (state.initialized) return
-  else state.initialized = true
+  if (state.initialized) {
+    return
+  } else {
+    state.initialized = true
+  }
   config.offset = config.offset || 0
   config.duration = config.duration || 1000
   // Find all anchor links that have a hash href
-  var sel = 'a[href^="#"]'
-  var anchors = document.querySelectorAll(sel)
+  var anchors = document.querySelectorAll('a[href^="#"]')
   var elems = []
   for (var idx = 0; idx < anchors.length; ++idx) {
     var anchor = anchors[idx]
@@ -23,7 +25,7 @@ module.exports = function init (config) {
   // Track scrolling and change the url and link states based on current section
   window.addEventListener('scroll', function () {
     findSection(elems, config)
-  })
+  }, {passive: true})
 }
 
 function handleClick (elems, idx, config) {
@@ -62,18 +64,18 @@ function findSection (elems, config) {
   var scrollPos = (window.scrollY || window.pageYOffset) - config.offset
 
   // Find the farthest-down element whose y coord is lte to scrollPos
-  var foundIdx = -1
-  for (var idx = 0; idx < elems.length && foundIdx < 0; ++idx) {
+  var foundIdx = null
+  for (var idx = 0; idx < elems.length && foundIdx === null; ++idx) {
     var section = elems[idx].section
     var top = section.offsetTop + config.offset
     var bottom = top + section.offsetHeight
-    if (scrollPos >= top && scrollPos < bottom) {
+    if (scrollPos >= (top - 1) && scrollPos < (bottom - 1)) {
       foundIdx = idx
     }
   }
-  if (foundIdx < 0) {
+  if (foundIdx === null) {
     deactivate(elems)
-    return // foundIdx = elems.length - 1
+    return
   }
   var elem = elems[foundIdx]
   if (elem && ('#' + elem.id) !== window.location.hash) {
