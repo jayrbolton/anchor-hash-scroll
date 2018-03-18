@@ -28,10 +28,10 @@ scroll({
 
 _Using a CDN_
 
-You can use unpkg with the URL: unpkg.com/anchor-hash-scroll@0.1.2/dist/build.min.js
+You can use unpkg with the URL: unpkg.com/anchor-hash-scroll/dist/build.min.js
 
 ```html
-<script src='//unpkg.com/anchor-hash-scroll@0.1.2/dist/build.min.js'></script>
+<script src='//unpkg.com/anchor-hash-scroll/dist/build.min.js'></script>
 ```
 
 ## Usage
