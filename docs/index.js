@@ -1,22 +1,24 @@
 var scroll = require('../index.js')
 
-function elm(name) { return document.createElement(name) }
-function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
-function randHeight(){return rand(3, 100) + 'rem'}
-function changeHeight(ev) {
-  ev.target.parentElement.style.paddingBottom = randHeight() 
+console.log(scroll)
+
+function elm (name) { return document.createElement(name) }
+function rand (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
+function randHeight () { return rand(3, 100) + 'rem' }
+function changeHeight (ev) {
+  ev.target.parentElement.style.paddingBottom = randHeight()
 }
 
 var nav = elm('nav')
 var main = elm('main')
-var sectionNames = ['A','B','C','D','E','F','G']
+var sectionNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 var body = document.body
 var eyes = '&#128064;'
 
-sectionNames.forEach(function(x) {
+sectionNames.forEach(function (x) {
   var section = elm('section')
   var h1 = elm('h1')
-  var a = elm('a') 
+  var a = elm('a')
   var btn = elm('button')
   var span = elm('span')
   btn.innerHTML = 'Change height'
@@ -24,7 +26,7 @@ sectionNames.forEach(function(x) {
   a.href = '#' + x
   a.innerHTML = x
   span.innerHTML = eyes
-  h1.innerHTML = 'Section ' + x 
+  h1.innerHTML = 'Section ' + x
   h1.appendChild(span)
   section.id = x
   section.style.paddingBottom = randHeight()
@@ -39,7 +41,10 @@ body.appendChild(main)
 var navHeight = nav.offsetHeight
 body.style.paddingTop = navHeight + 'px'
 
-scroll({
-  offset: 0 - navHeight 
-})
+// scroll({
+//   offset: 0 - navHeight
+// })
 
+window.anchorHashScroll.config({
+  offset: 0 - navHeight
+})
