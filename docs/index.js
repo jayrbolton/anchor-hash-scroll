@@ -1,7 +1,5 @@
 var scroll = require('../index.js')
 
-console.log(scroll)
-
 function elm (name) { return document.createElement(name) }
 function rand (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
 function randHeight () { return rand(3, 100) + 'rem' }
@@ -41,9 +39,9 @@ body.appendChild(main)
 var navHeight = nav.offsetHeight
 body.style.paddingTop = navHeight + 'px'
 
-// scroll({
-//   offset: 0 - navHeight
-// })
+scroll({
+  offset: 0 - navHeight
+})
 
 window.anchorHashScroll.config({
   offset: 0 - navHeight

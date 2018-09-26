@@ -12,11 +12,6 @@ module.exports = init
 window.anchorHashScroll = { config: init }
 
 function init (config) {
-  if (state.initialized) {
-    return
-  } else {
-    state.initialized = true
-  }
   config.offset = config.offset || 0
   config.duration = config.duration || 1000
   // Find all anchor links that have a hash href
@@ -29,11 +24,17 @@ function init (config) {
     if (section) {
       var elem = {id: id, anchor: anchor, section: section}
       elems.push(elem)
-      anchor.addEventListener('click', handleClick(elems, idx, config))
+      if (state.clickListener) {
+        anchor.removeEventListener(state.clickListener)
+      }
+      state.clickListener = anchor.addEventListener('click', handleClick(elems, idx, config))
     }
   }
   // Track scrolling and change the url and link states based on current section
-  window.addEventListener('scroll', function () {
+  if (state.scrollListener) {
+    window.removeEventListener(state.scrollListener)
+  }
+  state.scrollListener = window.addEventListener('scroll', function () {
     findSection(elems, config)
   }, {passive: true})
 }
