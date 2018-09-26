@@ -1,8 +1,6 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 var scroll = require('../index.js')
 
-console.log(scroll)
-
 function elm (name) { return document.createElement(name) }
 function rand (min, max) { return Math.floor(Math.random() * (max - min + 1)) + min }
 function randHeight () { return rand(3, 100) + 'rem' }
@@ -42,9 +40,9 @@ body.appendChild(main)
 var navHeight = nav.offsetHeight
 body.style.paddingTop = navHeight + 'px'
 
-// scroll({
-//   offset: 0 - navHeight
-// })
+scroll({
+  offset: 0 - navHeight
+})
 
 window.anchorHashScroll.config({
   offset: 0 - navHeight
@@ -59,11 +57,6 @@ module.exports = init
 window.anchorHashScroll = { config: init }
 
 function init (config) {
-  if (state.initialized) {
-    return
-  } else {
-    state.initialized = true
-  }
   config.offset = config.offset || 0
   config.duration = config.duration || 1000
   // Find all anchor links that have a hash href
@@ -76,11 +69,17 @@ function init (config) {
     if (section) {
       var elem = {id: id, anchor: anchor, section: section}
       elems.push(elem)
-      anchor.addEventListener('click', handleClick(elems, idx, config))
+      if (state.clickListener) {
+        anchor.removeEventListener(state.clickListener)
+      }
+      state.clickListener = anchor.addEventListener('click', handleClick(elems, idx, config))
     }
   }
   // Track scrolling and change the url and link states based on current section
-  window.addEventListener('scroll', function () {
+  if (state.scrollListener) {
+    window.removeEventListener(state.scrollListener)
+  }
+  state.scrollListener = window.addEventListener('scroll', function () {
     findSection(elems, config)
   }, {passive: true})
 }
