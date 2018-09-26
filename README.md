@@ -36,7 +36,7 @@ You can use unpkg with the URL: unpkg.com/anchor-hash-scroll/dist/build.min.js
 
 ## Usage
 
-The CDN version will get initialized automatically. For the NPM version, you can pass in configuration:
+For the NPM version, you can pass in configuration when you initialize it:
 
 ```js
 const anchorScroll = require('anchor-hash-scroll')
@@ -44,6 +44,15 @@ const anchorScroll = require('anchor-hash-scroll')
 anchorScroll({
   duration: 3000,
   offset: 0 - document.querySelector('#topNav').offsetHeight
+})
+```
+
+When using via the CDN, you can configure it by using the global `window.anchorHashScroll` object:
+
+```js
+window.anchorHashScroll.config({
+  duration: 3000,
+  offset: 0
 })
 ```
 

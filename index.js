@@ -1,7 +1,11 @@
 var jump = require('jump.js')
 var state = {}
 
-module.exports = function init (config) {
+module.exports = init
+
+window.anchorHashScroll = { config: init }
+
+function init (config) {
   if (state.initialized) {
     return
   } else {
