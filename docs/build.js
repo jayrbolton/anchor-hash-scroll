@@ -54,8 +54,6 @@ var state = {}
 
 module.exports = init
 
-window.anchorHashScroll = { config: init }
-
 function init (config) {
   config.offset = config.offset || 0
   config.duration = config.duration || 1000
